@@ -31,6 +31,8 @@ pipeline {
         always {
             allure(
                 includeProperties: false,
+                jdk: '',
+                commandline: 'allure',
                 results: [[path: 'target/allure-results']]
             )
         }
