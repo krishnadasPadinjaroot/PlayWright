@@ -1,0 +1,10 @@
+base\BaseTest.class
+pages\ProductsPage.class
+org\example\Main.class
+pages\LoginPage.class
+pages\AvailableExamplesPage.class
+utility\ConfigReader.class
+pages\CartPage.class
+utility\AllureUtil.class
+utility\CommonActions.class
+utility\VideoUtil.class
