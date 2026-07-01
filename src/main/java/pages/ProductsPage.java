@@ -2,12 +2,16 @@ package pages;
 
 import base.BaseTest;
 import com.microsoft.playwright.Locator;
+import org.slf4j.Logger;
 import utility.CommonActions;
 import utility.ConfigReader;
+import utility.LoggerUtil;
+
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class ProductsPage extends CommonActions {
-
+     private static final Logger log =
+            LoggerUtil.getLogger(BaseTest.class);
        String firstname=  ConfigReader.getProperty("firstname");
        String lastname=   ConfigReader.getProperty("lastname");
        String zipCode=   ConfigReader.getProperty("Zipcode");
@@ -74,7 +78,8 @@ public class ProductsPage extends CommonActions {
     public void verifySuccessMessage() {
         Locator successMessage=page.locator("//div[@id='checkout_complete_container']//h2[contains(text(),'Thank you for your order!')]");
         assertThat(successMessage).hasText("Thank you for your order!");
-        System.out.println("✅ Test Passed");
+        log.info("✅ Test Passed");
+
 
     }
 }
