@@ -66,7 +66,7 @@ public class ProductsPage extends CommonActions {
         lastNameBillingAddressInputTextField.type(lastname);
         zip_PostalCodeInputTextField.type(zipCode);
         continueButton.click();
-        assertThat(lastNameRequiredErrorMsg).hasText("Error: Last Name is required");
+        assertThat(lastNameRequiredErrorMsg).hasText("Meenu");
 
     }
 
