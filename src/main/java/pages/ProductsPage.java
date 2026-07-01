@@ -66,14 +66,14 @@ public class ProductsPage extends CommonActions {
         lastNameBillingAddressInputTextField.type(lastname);
         zip_PostalCodeInputTextField.type(zipCode);
         continueButton.click();
-        assertThat(lastNameRequiredErrorMsg).hasText("Meenu");
+        assertThat(lastNameRequiredErrorMsg).hasText("Error: Last Name is required");
 
     }
 
 
     public void verifySuccessMessage() {
         Locator successMessage=page.locator("//div[@id='checkout_complete_container']//h2[contains(text(),'Thank you for your order!')]");
-        assertThat(successMessage).hasText("Thank you for your order!");
+        assertThat(successMessage).hasText("Meenu");
         System.out.println("✅ Test Passed");
 
     }
