@@ -73,7 +73,7 @@ public class ProductsPage extends CommonActions {
 
     public void verifySuccessMessage() {
         Locator successMessage=page.locator("//div[@id='checkout_complete_container']//h2[contains(text(),'Thank you for your order!')]");
-        assertThat(successMessage).hasText("Meenu");
+        assertThat(successMessage).hasText("Thank you for your order!");
         System.out.println("✅ Test Passed");
 
     }
