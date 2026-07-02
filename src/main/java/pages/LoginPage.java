@@ -2,10 +2,13 @@ package pages;
 
 import base.BaseTest;
 import com.microsoft.playwright.Locator;
-import utility.CommonActions;
-import utility.ConfigReader;
+import utilities.CommonActions;
+import utilities.ConfigReader;
 
 public class LoginPage extends CommonActions {
+    public LoginPage() {
+        super();
+    }
 
     String Username=  ConfigReader.getProperty("username");
     String Password=  ConfigReader.getProperty("password");

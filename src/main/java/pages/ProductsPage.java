@@ -3,13 +3,17 @@ package pages;
 import base.BaseTest;
 import com.microsoft.playwright.Locator;
 import org.slf4j.Logger;
-import utility.CommonActions;
-import utility.ConfigReader;
-import utility.LoggerUtil;
+import utilities.CommonActions;
+import utilities.ConfigReader;
+import utilities.LoggerUtil;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class ProductsPage extends CommonActions {
+
+    public ProductsPage() {
+        super();
+    }
      private static final Logger log =
             LoggerUtil.getLogger(BaseTest.class);
        String firstname=  ConfigReader.getProperty("firstname");

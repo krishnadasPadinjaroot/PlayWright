@@ -5,8 +5,8 @@ import com.microsoft.playwright.Page;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import utility.AllureUtil;
-import utility.VideoUtil;
+import utilities.AllureUtil;
+import utilities.VideoUtil;
 
 import java.nio.file.Path;
 

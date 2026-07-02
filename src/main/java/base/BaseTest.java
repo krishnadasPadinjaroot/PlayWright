@@ -1,7 +1,7 @@
 package base;
 
 import com.microsoft.playwright.*;
-import utility.ConfigReader;
+import utilities.ConfigReader;
 import java.nio.file.Paths;
 public class BaseTest {
 

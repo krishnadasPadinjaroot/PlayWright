@@ -1,10 +1,11 @@
 package pages;
 
-import base.BaseTest;
-import utility.CommonActions;
+import utilities.CommonActions;
 
 public class CartPage extends CommonActions {
 
-
+    public CartPage() {
+        super();
+    }
 
 }

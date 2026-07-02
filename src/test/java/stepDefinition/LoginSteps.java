@@ -1,9 +1,7 @@
 package stepDefinition;
 
-import base.BaseTest;
 import io.cucumber.java.en.*;
 import pages.LoginPage;
-import utility.ConfigReader;
 
 public class LoginSteps {
 

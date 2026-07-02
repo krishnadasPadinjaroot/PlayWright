@@ -1,8 +1,7 @@
 package pages;
 
-import base.BaseTest;
 import com.microsoft.playwright.Locator;
-import utility.CommonActions;
+import utilities.CommonActions;
 
 public class AvailableExamplesPage extends CommonActions {
 
