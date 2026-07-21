@@ -83,7 +83,5 @@ public class ProductsPage extends CommonActions {
         Locator successMessage=page.locator("//div[@id='checkout_complete_container']//h2[contains(text(),'Thank you for your order!')]");
         assertThat(successMessage).hasText("Thank you for your order!");
         log.info("✅ Test Passed");
-
-
     }
 }
