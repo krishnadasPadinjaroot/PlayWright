@@ -16,11 +16,7 @@ public class CommonActions {
     protected final Page page = BrowserFactory.page();
     private static final Logger log =
             LoggerUtils.getLogger(BaseTest.class);
-    /* ==========================================================
-                        CLICK OPERATIONS
-       ========================================================== */
-
-    /* ==========================================================
+   /* ==========================================================
                         TEXT OPERATIONS
        ========================================================== */
 
