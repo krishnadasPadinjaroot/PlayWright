@@ -5,7 +5,7 @@ import io.qameta.allure.Allure;
 
 import java.io.ByteArrayInputStream;
 
-    public class AllureUtil {
+    public class AllureUtils {
 
         public static void attachScreenshot(byte[] screenshot) {
 

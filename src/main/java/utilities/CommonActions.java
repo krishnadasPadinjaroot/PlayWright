@@ -1,248 +1,192 @@
-
 package utilities;
 
-import base.BaseTest;
-import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.LoadState;
+import com.microsoft.playwright.Frame;
+import com.microsoft.playwright.FrameLocator;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.MouseButton;
 import com.microsoft.playwright.options.SelectOption;
-import com.microsoft.playwright.options.WaitForSelectorState;
+import factory.BrowserFactory;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
-public class CommonActions extends BaseTest {
+public class CommonActions {
 
-    protected Page page;
+    protected final Page page = BrowserFactory.page();
 
-    public CommonActions() {
-        page = BaseTest.page;
+    /* ==========================================================
+                        CLICK OPERATIONS
+       ========================================================== */
+
+    public void click(Locator locator) { locator.click(); }
+
+    public void doubleClick(Locator locator) { locator.dblclick(); }
+
+    public void rightClick(Locator locator) {
+        locator.click(new Locator.ClickOptions().setButton(MouseButton.RIGHT));
     }
 
-    /* =========================
-       ELEMENT ACTIONS
-       ========================= */
-
-    public void click(Locator locator) {
-        locator.click();
+    public void middleClick(Locator locator) {
+        locator.click(new Locator.ClickOptions().setButton(MouseButton.MIDDLE));
     }
 
-    public void fillText(String locator, String text) {
-        page.locator(locator).fill(text);
+    /* ==========================================================
+                        TEXT OPERATIONS
+       ========================================================== */
+
+    public void fillText(Locator locator, String text) {
+        locator.fill(text);
     }
 
-    public void clearText(String locator) {
-        page.locator(locator).clear();
+    public void typeText(Locator locator, String text) {
+        locator.pressSequentially(text);
+    }
+
+    public void clearText(Locator locator) {
+        locator.clear();
     }
 
     public String getText(Locator locator) {
+        return locator.innerText();
+    }
+
+    public String getTextContent(Locator locator) {
         return locator.textContent();
     }
 
-    public String getAttribute(String locator, String attribute) {
-        return page.locator(locator).getAttribute(attribute);
+    public String getInputValue(Locator locator) {
+        return locator.inputValue();
     }
 
-    public boolean isVisible(String locator) {
-        return page.locator(locator).isVisible();
+    /* ==========================================================
+                        STATE OPERATIONS
+       ========================================================== */
+
+    public boolean isVisible(Locator locator) {
+        return locator.isVisible();
     }
 
-    public boolean isEnabled(String locator) {
-        return page.locator(locator).isEnabled();
+    public boolean isHidden(Locator locator) {
+        return locator.isHidden();
     }
 
-    public boolean isChecked(String locator) {
-        return page.locator(locator).isChecked();
+    public boolean isEnabled(Locator locator) {
+        return locator.isEnabled();
     }
 
-    /* =========================
-       WAIT METHODS
-       ========================= */
-
-    public void waitForVisible(Locator locator) {
-        locator.waitFor(new Locator.WaitForOptions()
-                .setState(WaitForSelectorState.VISIBLE));
+    public boolean isDisabled(Locator locator) {
+        return locator.isDisabled();
     }
 
-    public void waitForHidden(Locator locator) {
-        locator.waitFor(new Locator.WaitForOptions()
-                .setState(WaitForSelectorState.HIDDEN));
+    public boolean isChecked(Locator locator) {
+        return locator.isChecked();
     }
 
-    public void waitForPageLoad() {
-        page.waitForLoadState(LoadState.LOAD);
+    public boolean isEditable(Locator locator) {
+        return locator.isEditable();
     }
 
-    public void waitForURL(String url) {
-        page.waitForURL(url);
+    /* ==========================================================
+                        ATTRIBUTE OPERATIONS
+       ========================================================== */
+
+    public String getAttribute(Locator locator, String attribute) {
+        return locator.getAttribute(attribute);
     }
 
-    public void waitForTimeout(int milliseconds) {
-        page.waitForTimeout(milliseconds);
+    public String getInnerHTML(Locator locator) {
+        return locator.innerHTML();
     }
 
-    /* =========================
-       MOUSE ACTIONS
-       ========================= */
+    /* ==========================================================
+                        MOUSE OPERATIONS
+       ========================================================== */
 
     public void hover(Locator locator) {
         locator.hover();
     }
 
-    public void doubleClick(Locator locator) {
-        locator.dblclick();
-    }
-
-    public void rightClick(Locator locator) {
-        locator.click(
-                new Locator.ClickOptions().setButton(MouseButton.RIGHT));
-    }
-
     public void dragAndDrop(Locator source, Locator target) {
-      source.dragTo(target);
-    }
-
-    /* =========================
-       KEYBOARD ACTIONS
-       ========================= */
-
-    public void pressEnter() { page.keyboard().press("Enter"); }
-
-    public void pressTab() { page.keyboard().press("Tab"); }
-
-    public void pressEscape() { page.keyboard().press("Escape"); }
-
-    public void pressKey(String key) { page.keyboard().press(key); }
-
-    public void typeText(String text) { page.keyboard().type(text); }
-
-    /* =========================
-       JAVASCRIPT ACTIONS
-       ========================= */
-
-    public void jsClick(Locator locator) {
-        locator.evaluate("element => element.click()");
+        source.dragTo(target);
     }
 
     public void scrollIntoView(Locator locator) {
         locator.scrollIntoViewIfNeeded();
     }
 
-    public void scrollToTop() {
-        page.evaluate("window.scrollTo(0,0)");
+    /* ==========================================================
+                        KEYBOARD OPERATIONS
+       ========================================================== */
+
+    public void pressKey(Locator locator, String key) {
+        locator.press(key);
     }
 
-    public void scrollToBottom() {
-        page.evaluate("window.scrollTo(0,document.body.scrollHeight)");
+    /* ==========================================================
+                        CHECKBOX / RADIO OPERATIONS
+       ========================================================== */
+
+    public void check(Locator locator) {
+        locator.check();
     }
 
-    public void scrollBy(int x, int y) {
-        page.evaluate("([x,y]) => window.scrollBy(x,y)", new int[]{x,y});
+    public void uncheck(Locator locator) {
+        locator.uncheck();
     }
 
-    public void highlightElement(Locator locator) {
-        locator
-                .evaluate("e => e.style.border='3px solid red'");
-    }
-
-    /* =========================
-       DROPDOWN METHODS
-       ========================= */
-
-    public void selectByText(Locator locator, String text) {
-        (locator).selectOption(new SelectOption().setLabel(text));
-    }
+    /* ==========================================================
+                        DROPDOWN OPERATIONS
+       ========================================================== */
 
     public void selectByValue(Locator locator, String value) {
-       (locator).selectOption(value);
+        locator.selectOption(value);
+    }
+
+    public void selectByLabel(Locator locator, String label) {
+        locator.selectOption(new SelectOption().setLabel(label));
     }
 
     public void selectByIndex(Locator locator, int index) {
-        (locator).selectOption(new SelectOption().setIndex(index));
+        locator.selectOption(new SelectOption().setIndex(index));
     }
 
-    public String getSelectedOption(Locator locator) {
-        return (locator).inputValue();
+    /* ==========================================================
+                        FILE OPERATIONS
+       ========================================================== */
+
+    public void uploadFile(Locator locator, String path) {
+        locator.setInputFiles(Paths.get(path));
     }
 
-    public List<String> getAllOptions(Locator locator) {
-        return locator.locator("option").allTextContents();
+    /* ==========================================================
+                        SCREENSHOT OPERATIONS
+       ========================================================== */
+
+    public byte[] takeScreenshot() {
+        return page.screenshot();
     }
 
-    /* =========================
-       FRAME METHODS
-       ========================= */
-
-    public Frame switchToFrame(String frameName) {
-        return page.frame(frameName);
+    public byte[] takeElementScreenshot(Locator locator) {
+        return locator.screenshot();
     }
 
-    public Frame switchToFrameByUrl(String url) {
-        return page.frameByUrl(url);
+    /* ==========================================================
+                        FRAME OPERATIONS
+       ========================================================== */
+
+    public Frame getFrameByName(String name) {
+        return page.frame(name);
     }
 
-    /* =========================
-       WINDOW / TAB METHODS
-       ========================= */
-
-    public Page switchToNewTab() {
-        return page.context().waitForPage(() -> {});
+    public FrameLocator frameLocator(String selector) {
+        return page.frameLocator(selector);
     }
 
-    public List<Page> getAllPages() {
-        return new ArrayList<>(page.context().pages());
-    }
+    /* ==========================================================
+                        WINDOW OPERATIONS
+       ========================================================== */
 
-    public int getPageCount() {
-        return page.context().pages().size();
-    }
-
-    /* =========================
-       NAVIGATION
-       ========================= */
-
-    public void navigateTo(String url) {
-        page.navigate(url);
-    }
-
-    public void goBack() {
-        page.goBack();
-    }
-
-    public void goForward() {
-        page.goForward();
-    }
-
-    public void refreshPage() {
-        page.reload();
-    }
-
-    /* =========================
-       BROWSER INFORMATION
-       ========================= */
-
-    public String getCurrentURL() {
-        return page.url();
-    }
-
-    public String getPageTitle() {
-        return page.title();
-    }
-
-    /* =========================
-       SCREENSHOTS
-       ========================= */
-
-    public void takeScreenshot(String fileName) {
-        page.screenshot(new Page.ScreenshotOptions()
-                .setPath(Paths.get("screenshots/" + fileName + ".png"))
-                .setFullPage(true));
-    }
-
-    public void takeElementScreenshot(String locator, String fileName) {
-        page.locator(locator).screenshot(
-                new Locator.ScreenshotOptions()
-                        .setPath(Paths.get("screenshots/" + fileName + ".png")));
+    public Page waitForPopup(Runnable action) {
+        return page.waitForPopup(action);
     }
 }

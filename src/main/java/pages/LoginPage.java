@@ -10,18 +10,18 @@ public class LoginPage extends CommonActions {
         super();
     }
 
-    String Username=  ConfigReader.getProperty("username");
-    String Password=  ConfigReader.getProperty("password");
-    String url=  ConfigReader.getProperty("url");
+    String Username=  ConfigReader.getUsername();
+    String Password=  ConfigReader.getPassword();
+    String url=  ConfigReader.getBaseUrl();
 
-    Locator usernameInputTextField=page.getByPlaceholder("Username");
-    Locator passwordInputTextField=page.getByPlaceholder("Password");
-    Locator loginButton=BaseTest.page.locator("#login-button");
-    Locator burgerMenuBtn = page.getByText("Open Menu");
-    Locator logOutLink = page.getByText("Logout");
+    private final Locator usernameInputTextField=page.getByPlaceholder("Username");
+    private final Locator passwordInputTextField=page.getByPlaceholder("Password");
+    private final Locator loginButton=page.locator("#login-button");
+    private final  Locator burgerMenuBtn = page.getByText("Open Menu");
+    private final  Locator logOutLink = page.getByText("Logout");
 
     public void openSite(){
-        BaseTest.page.navigate( url);
+        page.navigate( url);
 
     }
 
@@ -30,16 +30,18 @@ public class LoginPage extends CommonActions {
 
     public void login(String username, String password ) {
 
-        usernameInputTextField.fill(username);
-        passwordInputTextField.fill(password);
-        loginButton.click();
+        fillText(usernameInputTextField,Username);
+        fillText(passwordInputTextField,Password);
+        fillText(passwordInputTextField,Password);
+         click(loginButton);
 
     }
 
     public void userLogOut()
     {
-        burgerMenuBtn.click();
-        logOutLink.click();
+        click(burgerMenuBtn);
+        click(logOutLink);
+
     }
 
 

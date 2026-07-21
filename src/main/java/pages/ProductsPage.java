@@ -5,7 +5,7 @@ import com.microsoft.playwright.Locator;
 import org.slf4j.Logger;
 import utilities.CommonActions;
 import utilities.ConfigReader;
-import utilities.LoggerUtil;
+import utilities.LoggerUtils;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
@@ -15,10 +15,10 @@ public class ProductsPage extends CommonActions {
         super();
     }
      private static final Logger log =
-            LoggerUtil.getLogger(BaseTest.class);
-       String firstname=  ConfigReader.getProperty("firstname");
-       String lastname=   ConfigReader.getProperty("lastname");
-       String zipCode=   ConfigReader.getProperty("Zipcode");
+            LoggerUtils.getLogger(BaseTest.class);
+       String firstname=  ConfigReader.getFirstName();
+       String lastname=   ConfigReader.getLastName();
+       String zipCode=   ConfigReader.getZipCode();
 
        Locator addToCartSauceLabsBackpack =page.locator("//button[@id='add-to-cart-sauce-labs-backpack']");
        Locator addToCartSauceLabsBikeLight =page.locator("//button[@id='add-to-cart-sauce-labs-bike-light']");
@@ -37,12 +37,12 @@ public class ProductsPage extends CommonActions {
 
     public void addProductsToCart() {
 
-        addToCartSauceLabsBackpack.click();
-        addToCartSauceLabsBikeLight.click();
-        addToCartSauceLabsBolt_t_Shirt.click();
-        addToCartSauceLabsTestAllTheThingsTshirtRed.click();
-        sortDropdown.selectOption("Name (Z to A)");
-        sortDropdown.selectOption("Name (A to Z)");
+        click(addToCartSauceLabsBackpack);
+        click(addToCartSauceLabsBikeLight);
+        click( addToCartSauceLabsBolt_t_Shirt);
+        click(addToCartSauceLabsTestAllTheThingsTshirtRed);
+        selectByValue(sortDropdown,"Name (Z to A)");
+        selectByValue(sortDropdown,"Name (A to Z)");
 
 
     }
@@ -58,22 +58,22 @@ public class ProductsPage extends CommonActions {
     }
 
     public void enterCheckoutInfoAndFinish() {
-        shoppingCartLink.click();
-        checkOutButton.click();
-        firstNameBillingAddressInputTextField.type(firstname);
-        lastNameBillingAddressInputTextField.type(lastname);
-        zip_PostalCodeInputTextField.type(zipCode);
-        continueButton.click();
-        finishButton.click();
+        click(shoppingCartLink);
+        click(checkOutButton);
+        fillText(firstNameBillingAddressInputTextField,firstname);
+        fillText(lastNameBillingAddressInputTextField,lastname);
+        fillText(zip_PostalCodeInputTextField,zipCode);
+        click(continueButton);
+        click(finishButton);
 
     }
     public void enterCheckoutInfoAndVerifyLastNameErrorMsg(String LastNameErrorMsg) {
-        shoppingCartLink.click();
-        checkOutButton.click();
-        firstNameBillingAddressInputTextField.type(firstname);
-        lastNameBillingAddressInputTextField.type(lastname);
-        zip_PostalCodeInputTextField.type(zipCode);
-        continueButton.click();
+        click(shoppingCartLink);
+        click(checkOutButton);
+        fillText(firstNameBillingAddressInputTextField,firstname);
+        fillText(lastNameBillingAddressInputTextField,lastname);
+        fillText(zip_PostalCodeInputTextField,zipCode);
+        click(continueButton);
         assertThat(lastNameRequiredErrorMsg).hasText("Error: Last Name is required");
 
     }

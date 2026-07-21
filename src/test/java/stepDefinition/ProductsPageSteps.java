@@ -36,7 +36,6 @@ public class ProductsPageSteps {
 
     @And("user enter Checkout Info And Finish")
     public void enterCheckoutInfoAndFinish() {
-
         productsPage.enterCheckoutInfoAndFinish();
 
     }
