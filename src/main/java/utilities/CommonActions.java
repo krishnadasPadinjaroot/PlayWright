@@ -65,6 +65,16 @@ public class CommonActions {
         }
     }
 
+    public void appendText(Locator locator, String text) {
+        try {
+            log.info("Appending text '{}' into {}", text, locator);
+            locator.pressSequentially(text);
+            log.info("Text appended successfully.");
+        } catch (Exception e) {
+            log.error("Failed to append text.", e);
+            throw e;
+        }
+    }
 
 
     public void scrollIntoView(Locator locator) {
